@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ export const Todoprovider=({children})=>{
     }
 
     const updatetodo=(todo,id)=>{
-        settodos((prevtodos)=>prevtodos.map((prevtodo)=>(prevtodo.id==id?todo:prevtodo)))
+        settodos((prevtodos)=>prevtodos.map((prevtodo)=>(prevtodo.id===id?todo:prevtodo)))
 
     }
 
@@ -22,12 +22,27 @@ export const Todoprovider=({children})=>{
     }
 
     const toggletodo=(id)=>{
-        settodos((prevtodos)=>prevtodos.map((prevtodo)=>(id==prevtodo.id?{...prevtodo,completed:!prevtodo.completed}:prevtodo)))
+        settodos((prevtodos)=>prevtodos.map((prevtodo)=>(id===prevtodo.id?{...prevtodo,completed:!prevtodo.completed}:prevtodo)))
 
     }
+
+    useEffect(()=>{
+        localStorage.setItem("todos",JSON.stringify(todos))
+
+
+    },[todos])
+
+    useEffect(()=>{
+        const localtodos=JSON.parse(localStorage.getItem("todos"))
+        if (localtodos&&localtodos.length>0){
+            settodos(localtodos)
+        }
+
+
+    },[])
     return(
         <>
-        <Todocontext.Provider value={{todos,settodos,addtodos,deletetodo,toggletodo,updatetodo}}>
+        <Todocontext.Provider value={{todos,addtodos,deletetodo,toggletodo,updatetodo}}>
             {children}
 
         </Todocontext.Provider>
