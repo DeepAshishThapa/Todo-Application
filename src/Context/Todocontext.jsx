@@ -26,11 +26,7 @@ export const Todoprovider=({children})=>{
 
     }
 
-    useEffect(()=>{
-        localStorage.setItem("todos",JSON.stringify(todos))
-
-
-    },[todos])
+   
 
     useEffect(()=>{
         const localtodos=JSON.parse(localStorage.getItem("todos"))
@@ -40,6 +36,11 @@ export const Todoprovider=({children})=>{
 
 
     },[])
+     useEffect(()=>{
+        localStorage.setItem("todos",JSON.stringify(todos))
+
+
+    },[todos])
     return(
         <>
         <Todocontext.Provider value={{todos,addtodos,deletetodo,toggletodo,updatetodo}}>
