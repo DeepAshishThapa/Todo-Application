@@ -8,13 +8,14 @@ export const Todoform=()=>{
         if (!todo)
             return
         addtodos({todo:todo,completed:false})
+        settodo('')
 
 
 
         
      }
     return(
-        <form className="flex w-[70vw] m-auto">
+        <form className="flex w-[100%]">
             <input 
             type="text" 
             placeholder="write todo..."
