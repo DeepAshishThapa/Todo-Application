@@ -14,11 +14,14 @@ function App() {
     <>
 
       <div className='font-bold text-white text-2xl text-center py-8'>Manage Your Todos</div>
-      <div className='w-[70vw] m-auto flex flex-col gap-4 '>
+      <div className='md:w-[70vw] m-auto flex flex-col gap-4 w-[90vw]'>
         <Todoform />
 
        
-        <Todobox todos={todos}/>
+        {todos.map((todo)=>(
+          <Todobox todo={todo} key={todo.id}/>
+
+        ))}
       </div>
 
 
